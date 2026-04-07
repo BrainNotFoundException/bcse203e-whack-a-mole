@@ -1,27 +1,43 @@
 const grid = document.getElementById("grid");
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
+const gameOverEl = document.getElementById("game-over");
+const startBtn = document.getElementById("start-btn");
 
 let score = 0;
-let time = 30;
+let timeLeft = 30;
+let selectedTime = 30;
 let currentMole = null;
 let gameInterval, timerInterval;
+let running = false;
 
 for (let i = 0; i < 9; i++) {
     const hole = document.createElement("div");
     hole.classList.add("hole");
     hole.addEventListener("click", () => {
-        if (hole === currentMole) {
-            score++;
-            scoreEl.textContent = score;
-            hole.classList.remove("mole");
-            currentMole = null;
-        }
+        if (!running || hole !== currentMole) return;
+        score++;
+        scoreEl.textContent = score;
+        hole.classList.remove("mole");
+        hole.classList.add("whacked");
+        setTimeout(() => hole.classList.remove("whacked"), 200);
+        currentMole = null;
     });
     grid.appendChild(hole);
 }
 
 const holes = document.querySelectorAll(".hole");
+
+document.querySelectorAll(".time-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        if (running) return;
+        document.querySelectorAll(".time-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedTime = parseInt(btn.dataset.time);
+        timeLeft = selectedTime;
+        timeEl.textContent = timeLeft;
+    });
+});
 
 function randomMole() {
     holes.forEach(h => h.classList.remove("mole"));
@@ -31,21 +47,34 @@ function randomMole() {
 }
 
 function startGame() {
+    if (running) return;
+    running = true;
     score = 0;
-    time = 30;
+    timeLeft = selectedTime;
     scoreEl.textContent = score;
-    timeEl.textContent = time;
+    timeEl.textContent = timeLeft;
+    gameOverEl.textContent = "";
+    startBtn.disabled = true;
+    startBtn.textContent = "Playing...";
 
     gameInterval = setInterval(randomMole, 800);
 
     timerInterval = setInterval(() => {
-        time--;
-        timeEl.textContent = time;
-
-        if (time <= 0) {
-            clearInterval(gameInterval);
-            clearInterval(timerInterval);
-            alert("Game Over! Score: " + score);
+        timeLeft--;
+        timeEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            endGame();
         }
     }, 1000);
+}
+
+function endGame() {
+    clearInterval(gameInterval);
+    clearInterval(timerInterval);
+    holes.forEach(h => h.classList.remove("mole"));
+    currentMole = null;
+    running = false;
+    startBtn.disabled = false;
+    startBtn.textContent = "Play Again";
+    gameOverEl.textContent = `Game over! Final score: ${score} 🎉`;
 }

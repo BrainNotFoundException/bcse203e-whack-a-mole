@@ -1,25 +1,106 @@
 body {
     text-align: center;
     font-family: Arial;
+    background: #f5f0e8;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.hud {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.hud h2 {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.timer-options {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0 8px;
+}
+
+.time-btn {
+    padding: 6px 16px;
+    border: 2px solid #aaa;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #555;
+    transition: all 0.15s;
+}
+
+.time-btn.active {
+    background: #5a3e2b;
+    color: white;
+    border-color: #5a3e2b;
+}
+
+#start-btn {
+    padding: 8px 28px;
+    font-size: 1rem;
+    background: #5a3e2b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.15s;
+}
+
+#start-btn:hover:not(:disabled) {
+    background: #3e2a1a;
+}
+
+#start-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    margin-top: 20px;
+    margin: 0 auto;
 }
 
 .hole {
     width: 100px;
     height: 100px;
-    background: #444;
-    border-radius: 10px;
-    position: relative;
+    background: #7a5c3e;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background 0.1s, transform 0.1s;
+    box-shadow: 0 4px 0 #4a3020;
 }
 
-.mole {
-    background: brown;
+.hole:hover {
+    background: #8a6c4e;
+}
+
+.hole.mole {
+    background: #c0773a;
+    box-shadow: 0 4px 0 #8a4d1e, inset 0 -6px 12px rgba(0,0,0,0.2);
+}
+
+.hole.whacked {
+    transform: scale(0.88);
+    background: #e8a060;
+}
+
+#game-over {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #5a3e2b;
 }

@@ -7,16 +7,20 @@
 </head>
 
 <body>
-
-    <h1>Whack-a-Mole</h1>
-    <h2>Score: <span id="score">0</span></h2>
-    <h2>Time: <span id="time">30</span></h2>
-    <button onclick="startGame()">Start</button>
-
+    <h1>Whack-a-Mole 🔨</h1>
+    <div class="hud">
+        <h2>Score: <span id="score">0</span></h2>
+        <h2>Time: <span id="time">30</span>s</h2>
+    </div>
+    <div class="timer-options">
+        <button class="time-btn active" data-time="10">10s</button>
+        <button class="time-btn active" data-time="15">15s</button>
+        <button class="time-btn active" data-time="30">30s</button>
+    </div>
+    <button id="start-btn" onclick="startGame()">Start</button>
     <div class="grid" id="grid"></div>
-
+    <p id="game-over"></p>
     <script src="script.js"></script>
-
 </body>
 
 </html>
