@@ -15,15 +15,10 @@
 
 ## Challenges
 - Score updating incorrectly due to multiple clicks
+- Set wrong timing intervals
 
 ---
 
 ## Improvements Made
 - Made more minimal UI so that user can play easily
 - Made code more readable
-
----
-
-## 🔮 Future Improvements
-- Adding assets instead of color elements
-- Adding sound effects
